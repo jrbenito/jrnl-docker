@@ -1,0 +1,37 @@
+# jrnl as container
+
+This allows jrnl to run as a container, anywhere. Journal files could be stored in the cloud (dropbox)
+
+## Build
+
+docker build -t jrbenito/jrnl .
+
+## Usage
+
+`docker run -it --rm -v /path/to/journals/and/config:/jrnlfiles jrbenito/jrnl`
+
+This will run jrnl container, first time you will be prompted to configure your firs journal, pass `/jrnlfiles/journal.txt` as the location.
+
+`docker run -it --rm -v /path/to/journals/and/config:/jrnlfiles jrbenito/jrnl something to log in my journal`
+
+This will add "something to log in my journal" to your default journal
+
+`docker run -it --rm -v /path/to/journals/and/config:/jrnlfiles --entrypoint /bin/bash jrbenito/jrnl`
+
+This will run a bash shell inside the container.
+
+All journal times are logged in UTC timezone. To change that:
+
+`docker run -it --rm -v /etc/localtime:/etc/localtime:ro -v /path/to/journals/and/config:/jrnlfiles jrbenito/jrnl`
+
+This way your journal will have localtime.
+
+## Suggestion
+
+Make a alias for your bash shell:
+
+`alias jrnl = docker run -it --rm -v /path/to/journals/and/config:/jrnlfiles jrbenito/jrnl`
+
+Now you can do just:
+
+`jrnl another thing I want to say`
